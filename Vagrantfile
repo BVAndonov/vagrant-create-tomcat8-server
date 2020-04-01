@@ -1,15 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
-
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = "tomcat8"
+  config.vm.provision "shell", path: "tomcat_provision.sh"
+  config.vm.network "forwarded_port", guest: 8080, host: 8081
+  config.vm.provider "virtualbox" do |vb|
+     vb.name = "TomcatDev"
+     vb.memory = "1024"
+	 vb.cpus = 2
+  end
 end
